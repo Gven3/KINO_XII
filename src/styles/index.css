@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+
+  /* Background */
+  --color-background: #070c1c;
+  --color-surface: #1e2031;
+  --color-surface-light: #2a2c3d;
+
+  /* Text */
+  --color-white: #ffffff;
+  --color-muted: #a9a9a9;
+  --color-subtle: #505261;
+
+  /* Helper colors */
+  --color-danger: #ec3013;
+  --color-success: #4ade80;
+  --color-warning: #e27e04;
+}
+
+body {
+  @apply bg-background text-white;
+}
