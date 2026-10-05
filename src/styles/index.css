@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "@fontsource-variable/archivo";
 
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 @theme {
   /* Colors */
   --color-*: initial;
@@ -70,4 +74,24 @@
 
 body {
   @apply bg-background text-white font-sans text-body-m;
+}
+
+@utility scrollbar-custom {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-subtle);
+    border-radius: 9999px;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-subtle) transparent;
+  }
 }
