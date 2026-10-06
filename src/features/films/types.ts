@@ -33,6 +33,7 @@ export type Film = {
   isFeatured: boolean;
   fromPrice: number;
   ageRating: AgeRating;
+  synopsis: string;
   genres: Genre[];
   formats: Format[];
 };
