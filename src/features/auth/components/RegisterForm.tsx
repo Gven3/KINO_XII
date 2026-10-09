@@ -15,9 +15,10 @@ export function RegisterForm() {
     control,
     handleSubmit,
     setError,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid, touchedFields },
   } = useForm<RegisterValues>({
     resolver: zodResolver(registerSchema),
+    mode: "onTouched",
     defaultValues: {
       username: "",
       email: "",
@@ -60,12 +61,14 @@ export function RegisterForm() {
         label="Username"
         error={errors.username?.message}
         {...register("username")}
+        isValid={touchedFields.username && !errors.username}
       />
       <TextField
         label="Email"
         type="email"
         error={errors.email?.message}
         {...register("email")}
+        isValid={touchedFields.email && !errors.email}
       />
 
       <div className="grid grid-cols-2 items-start gap-3">
@@ -74,12 +77,16 @@ export function RegisterForm() {
           type="password"
           error={errors.password?.message}
           {...register("password", { deps: ["password_confirmation"] })}
+          isValid={touchedFields.password && !errors.password}
         />
         <TextField
           label="Confirm Password"
           type="password"
           error={errors.password_confirmation?.message}
           {...register("password_confirmation")}
+          isValid={
+            touchedFields.password_confirmation && !errors.password_confirmation
+          }
         />
       </div>
 
@@ -89,7 +96,7 @@ export function RegisterForm() {
         </p>
       )}
 
-      <AuthButton type="submit" disabled={isSubmitting}>
+      <AuthButton type="submit" disabled={!isValid || isSubmitting}>
         {isSubmitting ? "Signing up..." : "Sign up"}
       </AuthButton>
 
