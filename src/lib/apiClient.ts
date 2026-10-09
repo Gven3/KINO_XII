@@ -1,19 +1,52 @@
+import { authToken } from "@/lib/authToken";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function apiGet<T>(
+type RequestOptions = {
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  body?: unknown;
+  params?: Record<string, string>;
+  signal?: AbortSignal;
+};
+
+export class ApiError extends Error {
+  status: number;
+  data: unknown;
+
+  constructor(status: number, data: unknown) {
+    super(`Request failed with status ${status}`);
+    this.status = status;
+    this.data = data;
+  }
+}
+
+export async function apiRequest<T>(
   path: string,
-  params?: Record<string, string>,
-  signal?: AbortSignal,
+  { method = "GET", body, params, signal }: RequestOptions = {},
 ): Promise<T> {
   const query = params ? `?${new URLSearchParams(params)}` : "";
+  const token = authToken.get();
+  const isFormData = body instanceof FormData;
+
+  const headers: Record<string, string> = { Accept: "application/json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  if (body !== undefined && !isFormData)
+    headers["Content-Type"] = "application/json";
+
   const response = await fetch(`${API_URL}${path}${query}`, {
-    headers: { Accept: "application/json" },
+    method,
+    headers,
     signal,
+    body:
+      body === undefined ? undefined : isFormData ? body : JSON.stringify(body),
   });
 
+  const data = response.status === 204 ? null : await response.json();
+
   if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+    if (response.status === 401) authToken.clear();
+    throw new ApiError(response.status, data);
   }
 
-  return response.json() as Promise<T>;
+  return data as T;
 }

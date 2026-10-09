@@ -1,4 +1,4 @@
-import { apiGet } from "@/lib/apiClient";
+import { apiRequest } from "@/lib/apiClient";
 import type { Film } from "@/features/films/types";
 
 type searchResponse = {
@@ -6,5 +6,10 @@ type searchResponse = {
 };
 
 export function searchFilms(query: string, signal?: AbortSignal) {
-  return apiGet<searchResponse>("/search", { q: query }, signal);
+  return apiRequest<searchResponse>("/search", {
+    params: {
+      q: query,
+    },
+    signal,
+  });
 }

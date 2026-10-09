@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import { Header } from "@/components/layout/Header";
+import { AuthModal } from "@/features/auth/components/AuthModal";
 
 export default function RootLayout() {
   return (
@@ -8,6 +9,7 @@ export default function RootLayout() {
       <main>
         <Outlet />
       </main>
+      <AuthModal />
     </>
   );
 }

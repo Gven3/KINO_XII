@@ -1,4 +1,4 @@
-import { apiGet } from "@/lib/apiClient";
+import { apiRequest } from "@/lib/apiClient";
 import type { Film } from "@/features/films/types";
 
 type FeaturedFilmsResponse = {
@@ -6,5 +6,5 @@ type FeaturedFilmsResponse = {
 };
 
 export function getFeaturedFilms(signal?: AbortSignal) {
-  return apiGet<FeaturedFilmsResponse>("/movies/featured", {}, signal);
+  return apiRequest<FeaturedFilmsResponse>("/movies/featured", { signal });
 }

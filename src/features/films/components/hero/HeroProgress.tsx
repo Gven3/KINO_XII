@@ -15,6 +15,7 @@ export function HeroProgress({
     <div className="flex flex-1  gap-2">
       {Array.from({ length: count }, (_, index) => {
         const isActive = index === currentIndex;
+        const done = index < currentIndex;
 
         return (
           <button
@@ -25,6 +26,7 @@ export function HeroProgress({
             aria-current={isActive}
             className="h-[3px] flex-1 cursor-pointer overflow-hidden rounded-full bg-white"
           >
+            {done && <span className="block h-full bg-primary" />}
             {isActive && (
               <span
                 onAnimationEnd={onComplete}
