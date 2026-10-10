@@ -1,4 +1,5 @@
 import { useAuthModal } from "../hooks/useAuthModal";
+import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 import Modal from "./ui/Modal";
 
@@ -13,13 +14,7 @@ export function AuthModal() {
       onClose={closeAuth}
       title={view === "register" ? "Sign up" : "Log in"}
     >
-      {view === "login" && (
-        <div>hello</div>
-        // <LoginForm
-        //   onSuccess={closeAuth}
-        //   onSwitchToRegister={() => switchAuth("register")}
-        // />
-      )}
+      {view === "login" && <LoginForm />}
       {view === "register" && <RegisterForm />}
     </Modal>
   );

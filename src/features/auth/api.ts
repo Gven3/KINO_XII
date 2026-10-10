@@ -1,5 +1,5 @@
 import { apiRequest } from "@/lib/apiClient";
-import type { RegisterValues } from "./schemas";
+import type { LoginValues, RegisterValues } from "./schemas";
 import type { AuthResponse, User } from "./types";
 
 export async function register(values: RegisterValues) {
@@ -19,7 +19,20 @@ export async function register(values: RegisterValues) {
   });
   return response.data;
 }
+
 export async function getCurrentUser() {
   const response = await apiRequest<{ data: User }>("/me");
+  return response.data;
+}
+
+export function logout() {
+  return apiRequest<void>("/logout", { method: "POST" });
+}
+
+export async function login(values: LoginValues) {
+  const response = await apiRequest<{ data: AuthResponse }>("/login", {
+    method: "POST",
+    body: values,
+  });
   return response.data;
 }
