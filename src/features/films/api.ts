@@ -19,3 +19,15 @@ export async function getNowPlayingFilms(limit?: number, signal?: AbortSignal) {
   });
   return response.data;
 }
+
+export async function getUpcomingFilms(limit?: number, signal?: AbortSignal) {
+  const response = await apiRequest<FilmsResponse>("/movies/coming-soon", {
+    params: limit !== undefined ? { limit: String(limit) } : undefined,
+    signal,
+  });
+  return response.data;
+}
+
+export function notifyMe(slug: string) {
+  return apiRequest<void>(`/movies/${slug}/notify`, { method: "POST" });
+}
