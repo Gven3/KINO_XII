@@ -19,7 +19,9 @@ export function FilmRow({ title, seeAllHref, children }: FilmRowProps) {
     [WheelGesturesPlugin()],
   );
   return (
-    <section className="w-full p-17 flex flex-col gap-6 border-b border-b-surface-light">
+    <section
+      className={`w-full p-17 flex flex-col gap-6 ${title === "Coming soon" ? "" : "border-b border-b-surface-light"}`}
+    >
       <div className="w-full flex justify-between items-center">
         <h1 className="text-white text-h1 uppercase">{title}</h1>
         <Link to={seeAllHref} className="text-primary text-label-m">

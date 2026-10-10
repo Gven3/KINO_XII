@@ -1,8 +1,13 @@
 import { Link } from "react-router";
-
-export function Logo() {
+type LogoProps = {
+  for?: "header" | "footer";
+};
+export function Logo({ for: variant = "header" }: LogoProps) {
   return (
-    <Link to="/" className="text-h2 text-white flex items-center gap-[6px]">
+    <Link
+      to="/"
+      className={`text-white flex items-center gap-[6px] ${variant === "header" ? "text-h2" : "text-label-m"}`}
+    >
       KINO <span className="text-primary">XII</span>
     </Link>
   );
