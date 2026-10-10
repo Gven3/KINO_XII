@@ -14,7 +14,7 @@ type TagProps = {
 export function Tag({ value, variant = "white", iconSrc }: TagProps) {
   return (
     <span
-      className={`py-1.5 px-3 rounded-full text-label-s flex items-center gap-1 w-max ${VARIANT_STYLES[variant]}`}
+      className={`py-1 px-1.5 rounded-full text-label-s flex items-center gap-1 w-max ${VARIANT_STYLES[variant]}`}
     >
       {iconSrc && <img src={iconSrc} alt="" />}
       {value}

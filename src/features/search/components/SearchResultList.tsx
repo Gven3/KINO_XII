@@ -1,5 +1,5 @@
-import { FilmCard } from "@/features/films/components/FilmCard";
 import type { Film } from "@/features/films/types";
+import { SearchResultItem } from "./SearchResultItem";
 
 type SearchResultsListProps = {
   films: Film[];
@@ -17,7 +17,7 @@ export function SearchResultsList({ films }: SearchResultsListProps) {
       </div>
       <div className="flex flex-col w-full overflow-x-hidden overflow-y-auto scrollbar-custom pr-1">
         {films.map((film) => (
-          <FilmCard film={film} key={film.id} />
+          <SearchResultItem film={film} key={film.id} />
         ))}
       </div>
     </div>

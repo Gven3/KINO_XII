@@ -1,11 +1,11 @@
 import { useCarousel } from "../../hooks/useCarousel";
-import { useGetFeaturedFilms } from "../../hooks/useGetFeaturedFilms";
+import { useFeaturedFilms } from "../../hooks/useFeaturedFilms";
 import { HeroControls } from "./HeroControls";
 import { HeroProgress } from "./HeroProgress";
 import { HeroSlide } from "./HeroSlide";
 
 export function HeroCarousel() {
-  const { data: films = [], isError } = useGetFeaturedFilms();
+  const { data: films = [], isError } = useFeaturedFilms();
   const { currentIndex, goTo, next, prev } = useCarousel(films.length);
 
   if (isError || films.length === 0) return null;
