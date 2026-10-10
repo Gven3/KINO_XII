@@ -1,11 +1,12 @@
 import type { User } from "../types";
-import MenuModalButton from "./MenuModalButton";
+import { MenuModalButton } from "./MenuModalButton";
 import { ProfileStatus } from "./ui/ProfileStatus";
 import { UserAvatar } from "./UserAvatar";
 import user_icon from "@/assets/icons/user.svg";
 import ticket_icon from "@/assets/icons/ticket.svg";
 import logout_icon from "@/assets/icons/logout.svg";
 import { useLogout } from "../hooks/useLogout";
+import { MenuModalLink } from "./MenuModalLink";
 
 type UserMenuModalProps = {
   user: User;
@@ -27,18 +28,14 @@ export function UserMenuModal({ user }: UserMenuModalProps) {
         </div>
         <ProfileStatus activated={user.profileComplete} />
       </div>
-      <MenuModalButton iconSrc={user_icon} label="My Profile" type="default" />
-      <MenuModalButton
-        iconSrc={ticket_icon}
-        label="My Tickets"
-        type="default"
-      />
+      <MenuModalLink iconSrc={user_icon} label="My Profile" />
+      <MenuModalLink iconSrc={ticket_icon} label="My Tickets" />
       <div className="py-1 border-t border-t-white/10">
         <MenuModalButton
           iconSrc={logout_icon}
           label="Log out"
-          type="logout"
           onClick={() => logout()}
+          disabled={isPending}
         />
       </div>
     </div>
