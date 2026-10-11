@@ -7,7 +7,7 @@ type ImageUploadProps = {
   onChange: (file: File | null) => void;
   error?: string;
 };
-export function ImageUpload({ value, onChange }: ImageUploadProps) {
+export function ImageUpload({ value, onChange, error }: ImageUploadProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +59,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
           <span className="text-muted text-body-s">JPG, PNG or WEBP</span>
         </div>
       </label>
+      {error && <p className="text-primary text-label-s">{error}</p>}
     </div>
   );
 }
