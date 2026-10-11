@@ -1,3 +1,5 @@
+import type { Venue } from "@/features/venues/types";
+
 export type User = {
   id: number;
   username: string;
@@ -7,7 +9,7 @@ export type User = {
   mobileNumber: string | null;
   dateOfBirth: string | null;
   age: number | null;
-  preferredVenue: any | null;
+  preferredVenue: Venue | null;
   profileComplete: boolean;
 };
 

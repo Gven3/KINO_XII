@@ -1,4 +1,4 @@
-import { useId, type ComponentProps } from "react";
+import { useId, type ComponentProps, type ReactNode } from "react";
 import error_icon from "@/assets/icons/error.svg";
 import success_icon from "@/assets/icons/success.svg";
 
@@ -22,6 +22,8 @@ type TextFieldProps = ComponentProps<"input"> & {
   error?: string;
   isValid?: boolean;
   fieldSize?: FieldSize;
+  hint?: string;
+  endIcon?: ReactNode;
 };
 
 export function TextField({
@@ -30,6 +32,8 @@ export function TextField({
   isValid,
   error,
   fieldSize = "m",
+  hint,
+  endIcon,
   ...props
 }: TextFieldProps) {
   const inputId = useId();
@@ -47,19 +51,31 @@ export function TextField({
           <input
             id={inputId}
             type={type}
-            className={`w-full bg-surface rounded-xl px-4 outline-none border focus:border-surface-light ${SIZE_STYLES[fieldSize].input} ${error ? "border-primary text-primary" : `border-transparent ${SIZE_STYLES[fieldSize].text}`}`}
+            className={`w-full bg-surface rounded-xl px-4 outline-none disabled:text-muted border focus:border-surface-light ${SIZE_STYLES[fieldSize].input} ${error ? "border-primary text-primary" : `border-transparent ${SIZE_STYLES[fieldSize].text}`}`}
             {...props}
           />
-          {statusIcon && (
-            <img
-              src={statusIcon}
-              alt=""
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
-            />
+          {endIcon ? (
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white">
+              {endIcon}
+            </span>
+          ) : (
+            statusIcon && (
+              <img
+                src={statusIcon}
+                alt=""
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              />
+            )
           )}
         </div>
       </div>
-      <p className="text-primary text-label-s">{error}</p>
+      <p
+        className={
+          error ? "text-primary text-label-s" : "text-muted text-body-m"
+        }
+      >
+        {error ?? hint}
+      </p>
     </div>
   );
 }

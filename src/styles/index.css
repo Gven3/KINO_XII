@@ -87,6 +87,17 @@ body {
   @apply bg-background text-white font-sans text-body-m;
 }
 
+/* Native pickers (date, select list) open in dark to match the site. */
+input,
+select {
+  color-scheme: dark;
+}
+
+/* Date fields show our own calendar icon instead. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 @utility scrollbar-custom {
   &::-webkit-scrollbar {
     width: 4px;

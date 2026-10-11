@@ -20,7 +20,7 @@ export function Button({
   return (
     <button
       type="button"
-      className={`h-[41px] rounded-full text-button py-[13px] px-5.5 cursor-pointer ${VARIANT_STYLES[variant]} ${className}`}
+      className={`h-[41px] rounded-full text-button py-[13px] px-5.5 cursor-pointer transition-colors disabled:bg-subtle disabled:text-muted disabled:cursor-not-allowed ${VARIANT_STYLES[variant]} ${className}`}
       {...props}
     />
   );

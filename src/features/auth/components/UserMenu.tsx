@@ -26,7 +26,7 @@ export function UserMenu({ user }: UserMenuProps) {
           className={`text-white ${isOpen ? "rotate-180" : "rotate-0"} transition-transform duration-150`}
         />
       </button>
-      {isOpen && <UserMenuModal user={user} />}
+      {isOpen && <UserMenuModal user={user} onClose={() => setIsOpen(false)} />}
     </div>
   );
 }

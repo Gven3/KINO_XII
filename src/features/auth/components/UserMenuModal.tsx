@@ -10,9 +10,10 @@ import { MenuModalLink } from "./MenuModalLink";
 
 type UserMenuModalProps = {
   user: User;
+  onClose: () => void;
 };
 
-export function UserMenuModal({ user }: UserMenuModalProps) {
+export function UserMenuModal({ user, onClose }: UserMenuModalProps) {
   const { mutate: logout, isPending } = useLogout();
   return (
     <div
@@ -28,8 +29,18 @@ export function UserMenuModal({ user }: UserMenuModalProps) {
         </div>
         <ProfileStatus activated={user.profileComplete} />
       </div>
-      <MenuModalLink iconSrc={user_icon} label="My Profile" />
-      <MenuModalLink iconSrc={ticket_icon} label="My Tickets" />
+      <MenuModalLink
+        iconSrc={user_icon}
+        label="My Profile"
+        to="/profile"
+        onClick={onClose}
+      />
+      <MenuModalLink
+        iconSrc={ticket_icon}
+        label="My Tickets"
+        to="/profile/tickets"
+        onClick={onClose}
+      />
       <div className="py-1 border-t border-t-white/10">
         <MenuModalButton
           iconSrc={logout_icon}
