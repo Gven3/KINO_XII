@@ -1,6 +1,7 @@
 import type { Session } from "../types";
 import ticket_icon from "@/assets/icons/ticket_gray.svg";
 import { useBookingModal } from "@/features/booking/hooks/useBookingModal";
+import { hasSessionStarted } from "../utils";
 
 type SessionTicketProps = {
   session: Session;
@@ -9,10 +10,12 @@ type SessionTicketProps = {
 
 export function SessionTicket({ session, disabled }: SessionTicketProps) {
   const { openBooking } = useBookingModal();
+  const hasStarted = hasSessionStarted(session);
   return (
     <button
       type="button"
-      disabled={disabled || session.isSoldOut}
+      disabled={disabled || session.isSoldOut || hasStarted}
+      title={hasStarted ? "This session has already started" : undefined}
       onClick={() => openBooking(session.id)}
       className="relative flex h-20 w-62 cursor-pointer rounded-xl bg-background disabled:cursor-not-allowed disabled:opacity-50"
     >
@@ -36,7 +39,11 @@ export function SessionTicket({ session, disabled }: SessionTicketProps) {
         <span className="flex items-start text-muted gap-1">
           <img src={ticket_icon} alt="" />
           <span className="text-body-s text-muted">
-            {session.isSoldOut ? "Sold out" : `${session.seatsLeft} left`}
+            {hasStarted
+              ? "Started"
+              : session.isSoldOut
+                ? "Sold out"
+                : `${session.seatsLeft} left`}
           </span>
         </span>
       </div>

@@ -1,4 +1,17 @@
+import { parseDate } from "@/lib/date";
 import type { Hall, Session } from "./types";
+
+// Uses the session's own date and time (the cinema's wall clock, as shown on
+// the cards), so "18:15" stops being bookable at 18:15.
+export function hasSessionStarted({
+  date,
+  time,
+}: Pick<Session, "date" | "time">) {
+  const [hours = 0, minutes = 0] = time.split(":").map(Number);
+  const startsAt = parseDate(date);
+  startsAt.setHours(hours, minutes);
+  return startsAt <= new Date();
+}
 
 export type HallSessions = {
   hall: Hall;

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import type { Session } from "../../types";
+import { hasSessionStarted } from "../../utils";
 import ticket_green from "@/assets/icons/ticket_green.svg";
 import ticket_red from "@/assets/icons/ticket_red.svg";
 
@@ -12,6 +13,7 @@ type SessionCardProps = {
 
 export function SessionCard({ session, movieSlug }: SessionCardProps) {
   const isLow = session.seatsLeft <= LOW_SEATS;
+  const hasStarted = hasSessionStarted(session);
 
   const content = (
     <>
@@ -23,8 +25,10 @@ export function SessionCard({ session, movieSlug }: SessionCardProps) {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-muted text-body-s">{session.language.name}</span>
-        {session.isSoldOut ? (
-          <span className="text-muted text-body-s">Sold out</span>
+        {hasStarted || session.isSoldOut ? (
+          <span className="text-muted text-body-s">
+            {hasStarted ? "Started" : "Sold out"}
+          </span>
         ) : (
           <span
             className={`flex items-center gap-1 text-label-s ${isLow ? "text-primary" : "text-success"}`}
@@ -46,10 +50,11 @@ export function SessionCard({ session, movieSlug }: SessionCardProps) {
   const className =
     "w-63 shrink-0 p-4 flex flex-col gap-2 rounded-xl bg-surface";
 
-  if (session.isSoldOut) {
+  if (hasStarted || session.isSoldOut) {
     return (
       <div
         aria-disabled
+        title={hasStarted ? "This session has already started" : undefined}
         className={`${className} opacity-40 cursor-not-allowed`}
       >
         {content}
