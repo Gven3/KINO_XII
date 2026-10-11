@@ -13,6 +13,8 @@ export function useRefundOrder() {
       queryClient.setQueryData<Order[]>(TICKETS_KEY, (orders) =>
         orders?.map((order) => (order.id === refunded.id ? refunded : order)),
       );
+      // Then confirm with a fresh list from the server.
+      queryClient.invalidateQueries({ queryKey: TICKETS_KEY });
       // The seats are back on the map.
       queryClient.invalidateQueries({ queryKey: ["sessions"] });
       queryClient.invalidateQueries({ queryKey: ["seats"] });
