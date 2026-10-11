@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { TicketType } from "@/features/filter-options/types";
 import type { SelectedSeat } from "../../types";
 import { BookingButton } from "../ui/BookingButton";
@@ -11,6 +12,7 @@ type SeatsPanelProps = {
   maxSeats: number;
   subtotal: number;
   blockReason: string | null;
+  needsProfile: boolean;
   canContinue: boolean;
   isHolding: boolean;
   getPrice: (ticketType: string) => number;
@@ -25,6 +27,7 @@ export function SeatsPanel({
   maxSeats,
   subtotal,
   blockReason,
+  needsProfile,
   canContinue,
   isHolding,
   getPrice,
@@ -60,6 +63,14 @@ export function SeatsPanel({
       </div>
       <div className="pt-4 flex flex-col gap-4">
         {blockReason && <BookingNotice message={blockReason} />}
+        {needsProfile && (
+          <Link
+            to="/profile"
+            className="text-center text-primary text-button hover:underline"
+          >
+            Complete your profile
+          </Link>
+        )}
         <Subtotal amount={subtotal} />
         <BookingButton disabled={!canContinue} onClick={onNext}>
           {isHolding ? "Holding seats..." : "Next: Checkout"}

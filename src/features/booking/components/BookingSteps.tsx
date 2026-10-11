@@ -55,6 +55,7 @@ export function BookingSteps({ session, initialHold }: BookingStepsProps) {
               maxSeats={booking.maxSeats}
               subtotal={booking.subtotal}
               blockReason={booking.blockReason}
+              needsProfile={booking.needsProfile}
               canContinue={booking.canContinue}
               isHolding={booking.isHolding}
               getPrice={booking.getPrice}

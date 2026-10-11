@@ -64,7 +64,8 @@ export function useBooking(
   );
 
   const isUnderAge = user?.age != null && user.age < minAge;
-  const blockReason = !user?.profileComplete
+  const needsProfile = !user?.profileComplete;
+  const blockReason = needsProfile
     ? "Complete your profile to book tickets."
     : isUnderAge
       ? `This film is rated ${ratingCode}. You cannot buy tickets for it with this account.`
@@ -188,6 +189,7 @@ export function useBooking(
     maxSeats,
     subtotal,
     blockReason,
+    needsProfile,
     canContinue,
     isHolding,
     getPrice,
