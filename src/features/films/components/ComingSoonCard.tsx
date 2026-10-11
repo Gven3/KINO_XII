@@ -6,6 +6,7 @@ import bell_icon from "@/assets/icons/bell.svg";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
 import { Link } from "react-router";
 import { formatLongDate } from "@/lib/date";
+import { pendingAuthAction } from "@/features/auth/pendingAction";
 
 type ComingSoonCardType = {
   film: Film;
@@ -27,6 +28,7 @@ export function ComingSoonCard({ film }: ComingSoonCardType) {
 
   const handleNotify = () => {
     if (!isLoggedIn) {
+      pendingAuthAction.set(() => notify(film.slug));
       openAuth("login");
       return;
     }

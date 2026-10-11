@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router";
+import { pendingAuthAction } from "../pendingAction";
 
 export type AuthView = "login" | "register";
 
@@ -31,6 +32,7 @@ export function useAuthModal() {
   };
 
   const closeAuth = () => {
+    pendingAuthAction.clear();
     setSearchParams((params) => {
       params.delete(AUTH_PARAM);
       return params;
