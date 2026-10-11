@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
+import close_icon from "@/assets/icons/close.svg";
 import type { Order } from "@/features/booking/types";
 import { getBookingError } from "@/features/booking/utils";
 import { useRefundOrder } from "../hooks/useRefundOrder";
@@ -22,7 +23,15 @@ export function RefundDialog({ order, isOpen, onClose }: RefundDialogProps) {
 
   return (
     <Dialog isOpen={isOpen} onClose={close}>
-      <div className="w-105 p-8 flex flex-col gap-6 bg-background rounded-[28px] border border-surface-light">
+      <div className="relative w-105 p-8 flex flex-col gap-6 bg-background rounded-[28px] border border-surface-light">
+        <button
+          type="button"
+          aria-label="Close"
+          onClick={close}
+          className="absolute top-8 right-8 cursor-pointer"
+        >
+          <img src={close_icon} alt="" />
+        </button>
         <div className="flex flex-col gap-2">
           <h2 className="text-h2 text-white">Refund this order?</h2>
           <p className="text-muted text-body-m">
