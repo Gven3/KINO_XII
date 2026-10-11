@@ -1,6 +1,6 @@
 import { ApiError } from "@/lib/apiClient";
 import type { TicketType } from "@/features/filter-options/types";
-import type { Seat, SeatState } from "./types";
+import type { Seat, SeatHold, SeatState, SelectedSeat } from "./types";
 
 export type SeatDisplayState = SeatState | "selected";
 
@@ -24,6 +24,20 @@ export function getAllowedTicketTypes(
   return ticketTypes.filter(
     (type) =>
       type.blockedFromRatingAge === null || minAge < type.blockedFromRatingAge,
+  );
+}
+
+// Same seats with the same ticket types as the live hold.
+export function matchesHold(selection: SelectedSeat[], hold: SeatHold) {
+  return (
+    selection.length === hold.seats.length &&
+    hold.seats.every((held) =>
+      selection.some(
+        (seat) =>
+          seat.seatId === held.seatId &&
+          seat.ticketType === held.ticketType.slug,
+      ),
+    )
   );
 }
 

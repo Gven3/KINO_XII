@@ -21,7 +21,7 @@ export function SeatButton({ seat, state, onToggle }: SeatButtonProps) {
       onClick={() => onToggle(seat)}
       aria-label={`Seat ${seat.code}`}
       aria-pressed={state === "selected"}
-      className={`size-12 shrink-0 rounded-xl text-h3 transition-colors enabled:cursor-pointer enabled:hover:border-white disabled:cursor-not-allowed ${SEAT_STYLES[state]}`}
+      className={`size-12 shrink-0 rounded-xl text-button transition-colors enabled:cursor-pointer enabled:hover:border-white disabled:cursor-not-allowed ${SEAT_STYLES[state]}`}
     >
       {seat.label}
     </button>

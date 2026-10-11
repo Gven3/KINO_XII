@@ -14,6 +14,7 @@ import {
   getAllowedTicketTypes,
   getBookingError,
   getSeatPrice,
+  matchesHold,
   roundPrice,
 } from "../utils";
 import { useCreateHold } from "./useCreateHold";
@@ -136,6 +137,14 @@ export function useBooking(
   }, [hold]);
 
   async function holdSeats() {
+    // Nothing changed since the hold was made: keep it and its countdown.
+    // A new hold request would replace it with a fresh one.
+    if (hold && matchesHold(selection, hold)) {
+      setNotice(null);
+      setStep("checkout");
+      return;
+    }
+
     try {
       const newHold = await createHold({
         sessionId: session.id,
