@@ -9,7 +9,7 @@ import { BookingModal } from "@/features/booking/components/BookingModal";
 
 export function MoviePage() {
   const { slug = "" } = useParams<{ slug: string }>();
-  const { data: film = null, isLoading, error } = useFilmBySlug(slug);
+  const { data: film = null } = useFilmBySlug(slug);
 
   // Only films that actually loaded go into Recently viewed.
   const loadedSlug = film?.slug;

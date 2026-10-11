@@ -1,7 +1,6 @@
 import upload_icon from "@/assets/icons/upload.svg";
 import { useState, type ChangeEvent } from "react";
-
-export const ACCEPTED_AVATAR_TYPES = ["image/jpeg", "image/png", "image/webp"];
+import { ACCEPTED_AVATAR_TYPES } from "../schemas";
 
 type ImageUploadProps = {
   value: File | null;

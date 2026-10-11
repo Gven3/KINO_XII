@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { authToken } from "@/lib/authToken";
 import type { AuthResponse } from "@/features/auth/types";
 import { CURRENT_USER_KEY } from "@/features/auth/hooks/useCurrentUser";

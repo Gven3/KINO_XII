@@ -8,7 +8,7 @@ import { UserMenu } from "@/features/auth/components/UserMenu";
 
 export function Header() {
   const { openAuth } = useAuthModal();
-  const { user, isLoading, isLoggedIn } = useCurrentUser();
+  const { user, isLoading } = useCurrentUser();
   return (
     <header className="absolute inset-x-0 z-10 h-[111px] flex items-center justify-between px-15 bg-linear-to-b from-black/70 to-transparent">
       <div className="flex items-center justify-between gap-9">

@@ -19,7 +19,7 @@ export function FilmSessions({ film }: FilmSessionsProps) {
       ? firstSevenDays[0].value
       : new Date().toLocaleDateString(),
   );
-  const { data: sessions = [], isLoading } = useFilmSessions(
+  const { data: sessions = [] } = useFilmSessions(
     film.slug,
     currentDate,
   );

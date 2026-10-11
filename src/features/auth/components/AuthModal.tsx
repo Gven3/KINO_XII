@@ -4,7 +4,7 @@ import { RegisterForm } from "./RegisterForm";
 import Modal from "./ui/Modal";
 
 export function AuthModal() {
-  const { view, switchAuth, closeAuth } = useAuthModal();
+  const { view, closeAuth } = useAuthModal();
   //   const { isLoggedIn } = useCurrentUser();
   //   const activeView = isLoggedIn ? null : view;
 
