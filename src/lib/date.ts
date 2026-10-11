@@ -25,3 +25,13 @@ export function toDayOptions(dates: string[]): DayOption[] {
     };
   });
 }
+
+const longDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+export function formatLongDate(isoDate: string) {
+  return longDateFormatter.format(parseDate(isoDate));
+}

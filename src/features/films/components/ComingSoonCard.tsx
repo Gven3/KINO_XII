@@ -4,6 +4,7 @@ import type { Film } from "../types";
 import { Tag } from "./Tag";
 import bell_icon from "@/assets/icons/bell.svg";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
+import { Link } from "react-router";
 
 type ComingSoonCardType = {
   film: Film;
@@ -24,7 +25,10 @@ export function ComingSoonCard({ film }: ComingSoonCardType) {
   };
 
   return (
-    <li className="w-117 h-45 bg-surface rounded-[20px] p-3 flex items-center gap-5 shrink-0">
+    <Link
+      className="w-117 h-45 bg-surface rounded-[20px] p-3 flex items-center gap-5 shrink-0 border border-transparent hover:border-white/20 transition-colors duration-200 cursor-pointer"
+      to={`/movie/${film.slug}`}
+    >
       <div className="w-1/2 h-full rounded-[14px] overflow-hidden">
         <img src={film.posterUrl} alt="" className="size-full object-cover" />
       </div>
@@ -48,6 +52,6 @@ export function ComingSoonCard({ film }: ComingSoonCardType) {
           <span className="text-label-s text-white">Notify Me</span>
         </button>
       </div>
-    </li>
+    </Link>
   );
 }
