@@ -16,7 +16,7 @@ export function Header() {
         <nav>
           <ul>
             <li>
-              <NavLink to="/" className="text-white text-overline uppercase">
+              <NavLink to="/sessions" className="text-white text-overline uppercase">
                 Sessions
               </NavLink>
             </li>

@@ -20,3 +20,8 @@ export function groupSessionsByHall(sessions: Session[]): HallSessions[] {
 
   return [...groups.values()];
 }
+
+export function splitTimeBandLabel(label: string) {
+  const [name = label, hint] = label.split(" (");
+  return { name, hint: hint?.replace(")", "") };
+}
