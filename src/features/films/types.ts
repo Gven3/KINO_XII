@@ -37,3 +37,9 @@ export type Film = {
   genres: Genre[];
   formats: Format[];
 };
+
+export type FilmDetails = Film & {
+  director: string;
+  cast: string;
+  availableDates: string[];
+};

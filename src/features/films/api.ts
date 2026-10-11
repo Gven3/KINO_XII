@@ -1,5 +1,5 @@
 import { apiRequest } from "@/lib/apiClient";
-import type { Film } from "@/features/films/types";
+import type { Film, FilmDetails } from "@/features/films/types";
 
 type FilmsResponse = {
   data: Film[];
@@ -30,4 +30,11 @@ export async function getUpcomingFilms(limit?: number, signal?: AbortSignal) {
 
 export function notifyMe(slug: string) {
   return apiRequest<void>(`/movies/${slug}/notify`, { method: "POST" });
+}
+
+export async function getFilmBySlug(slug: string, signal?: AbortSignal) {
+  const response = await apiRequest<{ data: FilmDetails }>(`/movies/${slug}`, {
+    signal,
+  });
+  return response.data;
 }

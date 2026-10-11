@@ -27,7 +27,7 @@ export function FilmCard({ film }: FilmCardProps) {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-white text-label-s">From ₾{film.fromPrice}</span>
-        <ButtonLink variant="primary" to={"/sessions"}>
+        <ButtonLink variant="primary" to={"/movie/" + film.slug}>
           Buy Ticket
         </ButtonLink>
       </div>
