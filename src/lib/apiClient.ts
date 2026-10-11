@@ -2,6 +2,8 @@ import { authToken } from "@/lib/authToken";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+export const UNAUTHORIZED_EVENT = "kinoxii:unauthorized";
+
 type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
@@ -44,7 +46,11 @@ export async function apiRequest<T>(
   const data = response.status === 204 ? null : await response.json();
 
   if (!response.ok) {
-    if (response.status === 401) authToken.clear();
+    // A stored token was rejected: the session expired, so ask to log in again.
+    if (response.status === 401 && token) {
+      authToken.clear();
+      window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
+    }
     throw new ApiError(response.status, data);
   }
 
