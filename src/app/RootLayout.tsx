@@ -24,13 +24,14 @@ export default function RootLayout() {
   }, [queryClient, openAuth]);
 
   return (
-    <>
+    // Full-height column: on short pages the footer stays at the bottom.
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
       <AuthModal />
-    </>
+    </div>
   );
 }
