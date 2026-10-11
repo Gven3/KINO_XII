@@ -1,10 +1,11 @@
 import type { ComponentProps } from "react";
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "dark";
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary: "bg-primary text-white",
   secondary: "bg-white text-black",
+  dark: "bg-surface-light text-white",
 };
 
 type ButtonProps = ComponentProps<"button"> & {

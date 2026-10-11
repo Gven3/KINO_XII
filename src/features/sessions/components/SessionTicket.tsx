@@ -1,5 +1,6 @@
 import type { Session } from "../types";
 import ticket_icon from "@/assets/icons/ticket_gray.svg";
+import { useBookingModal } from "@/features/booking/hooks/useBookingModal";
 
 type SessionTicketProps = {
   session: Session;
@@ -7,10 +8,12 @@ type SessionTicketProps = {
 };
 
 export function SessionTicket({ session, disabled }: SessionTicketProps) {
+  const { openBooking } = useBookingModal();
   return (
     <button
       type="button"
-      disabled={disabled}
+      disabled={disabled || session.isSoldOut}
+      onClick={() => openBooking(session.id)}
       className="relative flex h-20 w-62 cursor-pointer rounded-xl bg-background disabled:cursor-not-allowed disabled:opacity-50"
     >
       <div className="flex w-40 flex-col items-center justify-center gap-2">

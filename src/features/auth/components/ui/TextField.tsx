@@ -2,11 +2,26 @@ import { useId, type ComponentProps } from "react";
 import error_icon from "@/assets/icons/error.svg";
 import success_icon from "@/assets/icons/success.svg";
 
+type FieldSize = "m" | "l";
+
+const SIZE_STYLES: Record<
+  FieldSize,
+  { label: string; input: string; text: string }
+> = {
+  m: { label: "text-label-s", input: "h-10 text-label-s", text: "text-muted" },
+  l: {
+    label: "text-label-m",
+    input: "h-13 text-label-m placeholder:text-subtle",
+    text: "text-white",
+  },
+};
+
 type TextFieldProps = ComponentProps<"input"> & {
   label: string;
   type: string;
   error?: string;
   isValid?: boolean;
+  fieldSize?: FieldSize;
 };
 
 export function TextField({
@@ -14,6 +29,7 @@ export function TextField({
   type,
   isValid,
   error,
+  fieldSize = "m",
   ...props
 }: TextFieldProps) {
   const inputId = useId();
@@ -23,7 +39,7 @@ export function TextField({
       <div className="flex flex-col gap-2.5">
         <label
           htmlFor={inputId}
-          className={`text-label-s ${error ? "text-primary" : "text-white"}`}
+          className={`${SIZE_STYLES[fieldSize].label} ${error ? "text-primary" : "text-white"}`}
         >
           {label}
         </label>
@@ -31,7 +47,7 @@ export function TextField({
           <input
             id={inputId}
             type={type}
-            className={`w-full h-10 bg-surface rounded-xl px-4 text-label-s outline-none border focus:border-surface-light ${error ? "border-primary text-primary" : "text-muted border-transparent"}`}
+            className={`w-full bg-surface rounded-xl px-4 outline-none border focus:border-surface-light ${SIZE_STYLES[fieldSize].input} ${error ? "border-primary text-primary" : `border-transparent ${SIZE_STYLES[fieldSize].text}`}`}
             {...props}
           />
           {statusIcon && (

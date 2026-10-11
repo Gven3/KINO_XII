@@ -3,6 +3,7 @@ import { MovieDetails } from "@/features/films/components/movie-details/MovieDet
 import { useFilmBySlug } from "@/features/films/hooks/useFilmBySlug";
 import { FilmSessions } from "@/features/sessions/components/FilmSessions";
 import { useParams } from "react-router";
+import { BookingModal } from "@/features/booking/components/BookingModal";
 
 export function MoviePage() {
   const { slug = "" } = useParams<{ slug: string }>();
@@ -18,6 +19,7 @@ export function MoviePage() {
             </div>
             <MovieDetails film={film} />
           </div>
+          <BookingModal />
         </>
       )}
     </>

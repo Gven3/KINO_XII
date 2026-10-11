@@ -50,3 +50,24 @@ export function getNextDays(count: number) {
     ),
   );
 }
+
+const dayDateFormatter = new Intl.DateTimeFormat("en-GB", {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+});
+// en-GB writes September as "Sept", the design wants "Sep".
+const shortMonthFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+});
+
+// "Tuesday 15 September"
+export function formatDayDate(isoDate: string) {
+  return dayDateFormatter.format(parseDate(isoDate));
+}
+
+// "Tue 15 Sep"
+export function formatShortDayDate(isoDate: string) {
+  const date = parseDate(isoDate);
+  return `${weekdayFormatter.format(date)} ${date.getDate()} ${shortMonthFormatter.format(date)}`;
+}
