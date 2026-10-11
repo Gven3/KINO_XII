@@ -36,7 +36,7 @@ export function SessionTicket({ session, disabled }: SessionTicketProps) {
         <span className="flex items-start text-muted gap-1">
           <img src={ticket_icon} alt="" />
           <span className="text-body-s text-muted">
-            {session.seatsLeft} left
+            {session.isSoldOut ? "Sold out" : `${session.seatsLeft} left`}
           </span>
         </span>
       </div>

@@ -11,6 +11,10 @@ export function MovieDetails({ film }: MovieDetailsProps) {
   return (
     <div className="w-94 shrink-0 flex flex-col gap-4">
       <h2 className="text-h2 text-white">Details</h2>
+      <DetailItem
+        label="Genre"
+        value={film.genres.map((genre) => genre.name).join(", ")}
+      />
       <DetailItem label="Director" value={film.director} />
       <DetailItem label="Main cast" value={film.cast} />
       <DetailItem label="Duration" value={film.runtimeMinutes + " minutes"} />

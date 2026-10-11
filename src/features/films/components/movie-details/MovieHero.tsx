@@ -17,7 +17,10 @@ export function MovieHero({ film }: MovieHeroProps) {
           <img src={film.posterUrl} alt="" className="size-full object-cover" />
         </div>
         <div className="w-140 flex flex-col justify-end gap-4">
-          <Tag value="NOW PLAYING" variant="primary" />
+          <Tag
+            value={film.isComingSoon ? "COMING SOON" : "NOW PLAYING"}
+            variant="primary"
+          />
           <span className="text-white text-display uppercase">
             {film.title}
           </span>
