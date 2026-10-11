@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthModal } from "@/features/auth/hooks/useAuthModal";
 import { CURRENT_USER_KEY } from "@/features/auth/hooks/useCurrentUser";
@@ -11,6 +11,13 @@ import { Footer } from "@/components/layout/Footer";
 export default function RootLayout() {
   const queryClient = useQueryClient();
   const { openAuth } = useAuthModal();
+  const { pathname } = useLocation();
+
+  // A new page starts at the top; otherwise the old scroll position carries over.
+  // Keyed on the path only, so query changes (filters, date, booking modal) don't jump.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   // Any 401 logs the user out locally and opens the login modal.
   useEffect(() => {
