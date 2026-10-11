@@ -1,16 +1,37 @@
+import { ErrorState } from "@/components/ui/ErrorState";
 import { useCarousel } from "../../hooks/useCarousel";
 import { useFeaturedFilms } from "../../hooks/useFeaturedFilms";
 import { HeroControls } from "./HeroControls";
 import { HeroProgress } from "./HeroProgress";
+import { HeroSkeleton } from "./HeroSkeleton";
 import { HeroSlide } from "./HeroSlide";
 
 export function HeroCarousel() {
-  const { data, isError } = useFeaturedFilms();
+  const { data, isPending, isError, isRefetching, refetch } =
+    useFeaturedFilms();
   // The hero shows exactly four featured films.
   const films = data?.slice(0, 4) ?? [];
   const { currentIndex, goTo, next, prev } = useCarousel(films.length);
 
-  if (isError || films.length === 0) return null;
+  if (isPending) return <HeroSkeleton />;
+
+  if (isError || films.length === 0) {
+    return (
+      <section className="h-190 px-17 pt-28 flex items-center justify-center bg-surface/40">
+        {isError ? (
+          <ErrorState
+            message="We couldn't load the featured films."
+            onRetry={() => refetch()}
+            isRetrying={isRefetching}
+          />
+        ) : (
+          <p className="text-muted text-body-l">
+            There are no featured films right now.
+          </p>
+        )}
+      </section>
+    );
+  }
 
   return (
     <section
