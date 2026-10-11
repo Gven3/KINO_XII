@@ -9,7 +9,11 @@ export function useCreateOrder() {
   return useMutation({
     mutationKey: CREATE_ORDER_KEY,
     mutationFn: createOrder,
-    // Seats left changed for everyone, so session lists are stale now.
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["sessions"] }),
+    onSuccess: () => {
+      // Seats left changed for everyone, so session lists are stale now.
+      queryClient.invalidateQueries({ queryKey: ["sessions"] });
+      // The new order belongs in My Tickets.
+      queryClient.invalidateQueries({ queryKey: ["tickets"] });
+    },
   });
 }

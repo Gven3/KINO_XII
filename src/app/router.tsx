@@ -5,7 +5,7 @@ import { MoviePage } from "@/pages/MoviePage";
 import { SessionsPage } from "@/pages/SessionsPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { PersonalInformation } from "@/features/profile/components/PersonalInformation";
-import { MyTickets } from "@/features/profile/components/MyTickets";
+import { MyTickets } from "@/features/tickets/components/MyTickets";
 
 export const router = createBrowserRouter([
   {
