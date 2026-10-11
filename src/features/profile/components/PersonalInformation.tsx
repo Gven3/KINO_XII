@@ -8,7 +8,16 @@ export function PersonalInformation() {
   const { user } = useCurrentUser();
   const { data: options } = useFilterOptions();
   // The venue select needs its options before it can show the saved venue.
-  if (!user || !options) return null;
+  if (!user) return null;
+  if (!options) {
+    return (
+      <div
+        role="status"
+        aria-label="Loading profile"
+        className="max-w-300 h-150 animate-pulse rounded-[18px] bg-surface"
+      />
+    );
+  }
 
   return (
     <div className="max-w-300 flex flex-col gap-6">
