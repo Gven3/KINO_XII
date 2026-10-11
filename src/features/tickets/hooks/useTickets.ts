@@ -5,7 +5,13 @@ export const TICKETS_KEY = ["tickets"] as const;
 
 // One request for both tabs: orders are split on isUpcoming.
 export function useTickets() {
-  const { data: orders = [], isLoading } = useQuery({
+  const {
+    data: orders = [],
+    isLoading,
+    isError,
+    isRefetching,
+    refetch,
+  } = useQuery({
     queryKey: TICKETS_KEY,
     queryFn: ({ signal }) => getTickets(signal),
   });
@@ -14,5 +20,8 @@ export function useTickets() {
     upcoming: orders.filter((order) => order.isUpcoming),
     past: orders.filter((order) => !order.isUpcoming),
     isLoading,
+    isError,
+    isRefetching,
+    refetch,
   };
 }
