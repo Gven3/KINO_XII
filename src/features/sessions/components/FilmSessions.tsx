@@ -1,10 +1,11 @@
 import type { FilmDetails } from "@/features/films/types";
 import { DayPicker } from "./DayPicker";
-import { toDayOptions } from "@/lib/date";
-import { useState } from "react";
+import { getNextDays, toDayOptions, toIsoDate } from "@/lib/date";
+import { useSearchParams } from "react-router";
 import { useFilmSessions } from "../hooks/useFilmSessions";
 import { VenueHall } from "./VenueHall";
 import { useCurrentUser } from "@/features/auth/hooks/useCurrentUser";
+import { ErrorState } from "@/components/ui/ErrorState";
 
 type FilmSessionsProps = {
   film: FilmDetails;
@@ -13,23 +14,33 @@ type FilmSessionsProps = {
 export function FilmSessions({ film }: FilmSessionsProps) {
   const { user } = useCurrentUser();
   const isUnderAge = user?.age != null && user.age < film.ageRating.minAge;
-  const firstSevenDays = toDayOptions(film.availableDates.slice(0, 7));
-  const [currentDate, setCurrentDate] = useState<string>(
-    firstSevenDays[0]
-      ? firstSevenDays[0].value
-      : new Date().toLocaleDateString(),
-  );
-  const { data: sessions = [] } = useFilmSessions(
-    film.slug,
-    currentDate,
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  // Same picker as the Sessions page: next 7 days, today by default, in the URL.
+  const currentDate = searchParams.get("date") ?? toIsoDate(new Date());
+  const {
+    data: sessions = [],
+    isPending,
+    isError,
+    isRefetching,
+    refetch,
+  } = useFilmSessions(film.slug, currentDate);
+
+  const setCurrentDate = (date: string) => {
+    setSearchParams(
+      (params) => {
+        params.set("date", date);
+        return params;
+      },
+      { replace: true },
+    );
+  };
 
   return (
     <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-2">
         <h2 className="text-h2 text-white">Sessions</h2>
         <DayPicker
-          dates={toDayOptions(film.availableDates.slice(0, 7))}
+          dates={toDayOptions(getNextDays(7))}
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
         />
@@ -40,19 +51,35 @@ export function FilmSessions({ film }: FilmSessionsProps) {
           it with this account.
         </span>
       )}
-      {sessions.length === 0 && (
-        <span className="text-h2 text-white">
-          There are no sessions available.
-        </span>
-      )}
-      {sessions.map((session, id) => (
-        <VenueHall
-          key={id}
-          sessions={session.sessions}
-          venue={session.venue}
-          disabled={isUnderAge}
+      {isPending ? (
+        <div
+          role="status"
+          aria-label="Loading sessions"
+          className="flex flex-col gap-3"
+        >
+          <div className="h-5 w-48 animate-pulse rounded-md bg-surface" />
+          <div className="h-33 w-full animate-pulse rounded-[18px] bg-surface" />
+        </div>
+      ) : isError ? (
+        <ErrorState
+          message="We couldn't load the sessions for this date."
+          onRetry={() => refetch()}
+          isRetrying={isRefetching}
         />
-      ))}
+      ) : sessions.length === 0 ? (
+        <p className="text-muted text-body-l">
+          There are no sessions on this date. Try another day.
+        </p>
+      ) : (
+        sessions.map((session) => (
+          <VenueHall
+            key={session.venue.id}
+            sessions={session.sessions}
+            venue={session.venue}
+            disabled={isUnderAge}
+          />
+        ))
+      )}
     </div>
   );
 }
