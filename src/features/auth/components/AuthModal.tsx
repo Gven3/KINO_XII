@@ -12,7 +12,7 @@ export function AuthModal() {
     <Modal
       isOpen={view !== null}
       onClose={closeAuth}
-      title={view === "register" ? "Sign up" : "Log in"}
+      title={view === "register" ? "Sign Up" : "Log In"}
     >
       {view === "login" && <LoginForm />}
       {view === "register" && <RegisterForm />}

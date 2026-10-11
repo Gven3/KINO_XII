@@ -40,11 +40,14 @@ export default function Modal({
     >
       {isOpen && (
         <div className="relative w-105  flex flex-col gap-6 p-8 bg-background rounded-[28px] border border-surface-light shadow-[0_20px_50px_-10px_rgb(0_0_0/0.2)]">
-          <img
-            src={close_icon}
-            alt=""
+          <button
+            type="button"
+            aria-label="Close"
+            onClick={onClose}
             className="absolute top-8 right-8 cursor-pointer"
-          />
+          >
+            <img src={close_icon} alt="" />
+          </button>
           <div className="flex flex-col gap-2">
             <h2 className="text-h2 text-white">{title}</h2>
             <span className="text-label-s text-muted">
