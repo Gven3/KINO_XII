@@ -13,7 +13,7 @@ const SIZE_STYLES: Record<
   },
   sm: {
     list: "gap-1.5 overflow-x-auto [scrollbar-width:none]",
-    day: "h-12 w-10 shrink-0 rounded-lg transition-colors duration-200",
+    day: "h-15 w-11 shrink-0 rounded-[10px] transition-colors duration-200",
     active: "bg-primary",
     idle: "bg-surface-light",
     number: "text-label-s",

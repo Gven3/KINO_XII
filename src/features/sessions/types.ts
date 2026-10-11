@@ -1,4 +1,4 @@
-import type { Format } from "@/features/films/types";
+import type { Film, Format } from "@/features/films/types";
 import type { Venue } from "@/features/venues/types";
 
 export type Hall = {
@@ -34,4 +34,18 @@ export type Session = {
 export type VenueSessions = {
   venue: Venue;
   sessions: Session[];
+};
+
+export type MovieSessions = {
+  movie: Omit<Film, "synopsis">;
+  sessions: Session[];
+};
+
+export type SessionsMeta = {
+  currentPage: number;
+  lastPage: number;
+  perPage: number;
+  totalSessions: number;
+  totalMovies: number;
+  date: string;
 };

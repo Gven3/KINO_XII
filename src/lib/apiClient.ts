@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
-  params?: Record<string, string>;
+  params?: Record<string, string> | URLSearchParams;
   signal?: AbortSignal;
 };
 

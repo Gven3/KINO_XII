@@ -20,8 +20,8 @@ export function FiltersSidebar() {
   if (!options) return null;
 
   return (
-    <aside className="w-68 shrink-0 sticky top-8 self-start bg-surface rounded-[18px] p-5 flex flex-col">
-      <h3 className="text-h3 text-white">Filters</h3>
+    <aside className="w-88 shrink-0 sticky top-8 self-start bg-surface rounded-[18px] p-7 flex flex-col">
+      <h2 className="text-h2 text-white">Filters</h2>
 
       <FilterSection title="Venue">
         {options.venues.map((venue) => (
@@ -30,7 +30,7 @@ export function FiltersSidebar() {
             label={venue.name}
             hint={venue.city}
             checked={filters.venues.includes(venue.slug)}
-            onChange={() => toggle("venue", venue.slug)}
+            onChange={() => toggle("venues[]", venue.slug)}
           />
         ))}
       </FilterSection>
@@ -50,7 +50,7 @@ export function FiltersSidebar() {
             key={format.id}
             label={format.name}
             checked={filters.formats.includes(format.slug)}
-            onChange={() => toggle("format", format.slug)}
+            onChange={() => toggle("formats[]", format.slug)}
           />
         ))}
       </FilterSection>
@@ -61,7 +61,7 @@ export function FiltersSidebar() {
             key={language.id}
             label={language.name}
             checked={filters.languages.includes(language.slug)}
-            onChange={() => toggle("language", language.slug)}
+            onChange={() => toggle("languages[]", language.slug)}
           />
         ))}
       </FilterSection>
@@ -74,19 +74,19 @@ export function FiltersSidebar() {
               key={timeBand.id}
               label={name}
               hint={hint}
-              checked={filters.timeBands.includes(timeBand.id)}
-              onChange={() => toggle("time", timeBand.id)}
+              checked={filters.bands.includes(timeBand.id)}
+              onChange={() => toggle("bands[]", timeBand.id)}
             />
           );
         })}
       </FilterSection>
 
-      <div className="pt-5 flex flex-col items-center gap-2">
+      <div className="pt-7 flex flex-col items-center gap-2">
         {activeCount > 0 && (
           <button
             type="button"
             onClick={clearFilters}
-            className="w-full h-9 rounded-full border border-white/60 text-white text-button cursor-pointer"
+            className="w-full h-11 rounded-full border border-white/60 text-white text-button cursor-pointer"
           >
             Clear filters
           </button>
