@@ -65,6 +65,7 @@ export function PersonalInfoForm({ user, venues }: PersonalInfoFormProps) {
       <TextField
         fieldSize="l"
         label="Full name"
+        placeholder="e.g. Nino Beridze"
         type="text"
         autoComplete="name"
         error={errors.fullName?.message}

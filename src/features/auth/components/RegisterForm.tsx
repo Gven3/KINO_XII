@@ -59,12 +59,14 @@ export function RegisterForm() {
       <TextField
         type="text"
         label="Username"
+        placeholder="e.g. moviefan"
         error={errors.username?.message}
         {...register("username")}
         isValid={touchedFields.username && !errors.username}
       />
       <TextField
         label="Email"
+        placeholder="e.g. name@example.com"
         type="email"
         error={errors.email?.message}
         {...register("email")}
@@ -74,6 +76,7 @@ export function RegisterForm() {
       <div className="grid grid-cols-2 items-start gap-3">
         <TextField
           label="Password"
+          placeholder="At least 3 characters"
           type="password"
           error={errors.password?.message}
           {...register("password", { deps: ["password_confirmation"] })}
@@ -81,6 +84,7 @@ export function RegisterForm() {
         />
         <TextField
           label="Confirm Password"
+          placeholder="Repeat your password"
           type="password"
           error={errors.password_confirmation?.message}
           {...register("password_confirmation")}

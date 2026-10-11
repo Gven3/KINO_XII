@@ -80,6 +80,7 @@ export function CheckoutForm({
       <TextField
         fieldSize="l"
         label="Full name"
+        placeholder="e.g. Nino Beridze"
         type="text"
         autoComplete="name"
         error={errors.fullName?.message}
@@ -90,6 +91,7 @@ export function CheckoutForm({
         <TextField
           fieldSize="l"
           label="Email"
+          placeholder="e.g. name@example.com"
           type="email"
           autoComplete="email"
           error={errors.email?.message}

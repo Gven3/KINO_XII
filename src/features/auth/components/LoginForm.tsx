@@ -38,6 +38,7 @@ export function LoginForm() {
     >
       <TextField
         label="Email"
+        placeholder="e.g. name@example.com"
         type="email"
         autoComplete="email"
         error={errors.email?.message}
@@ -46,6 +47,7 @@ export function LoginForm() {
       />
       <TextField
         label="Password"
+        placeholder="Enter your password"
         type="password"
         autoComplete="current-password"
         error={errors.password?.message}

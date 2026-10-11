@@ -8,7 +8,11 @@ const SIZE_STYLES: Record<
   FieldSize,
   { label: string; input: string; text: string }
 > = {
-  m: { label: "text-label-s", input: "h-10 text-label-s", text: "text-muted" },
+  m: {
+    label: "text-label-s",
+    input: "h-10 text-label-s placeholder:text-subtle",
+    text: "text-muted",
+  },
   l: {
     label: "text-label-m",
     input: "h-13 text-label-m placeholder:text-subtle",
