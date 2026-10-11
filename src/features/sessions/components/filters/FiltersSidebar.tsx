@@ -1,4 +1,5 @@
 import { Checkbox } from "@/components/ui/Checkbox";
+import { ErrorState } from "@/components/ui/ErrorState";
 import { useFilterOptions } from "@/features/filter-options/hooks/useFilterOptions";
 import { getNextDays, toDayOptions } from "@/lib/date";
 import { useSessionFilters } from "../../hooks/useSessionFilters";
@@ -7,7 +8,7 @@ import { DayPicker } from "../DayPicker";
 import { FilterSection } from "./FilterSection";
 
 export function FiltersSidebar() {
-  const { data: options } = useFilterOptions();
+  const { data: options, isError, isRefetching, refetch } = useFilterOptions();
   const {
     filters,
     availableFormats,
@@ -17,7 +18,25 @@ export function FiltersSidebar() {
     clearFilters,
   } = useSessionFilters();
 
-  if (!options) return null;
+  if (!options) {
+    return (
+      <aside className="w-88 shrink-0 self-start">
+        {isError ? (
+          <ErrorState
+            message="We couldn't load the filters."
+            onRetry={() => refetch()}
+            isRetrying={isRefetching}
+          />
+        ) : (
+          <div
+            role="status"
+            aria-label="Loading filters"
+            className="h-200 animate-pulse rounded-[18px] bg-surface"
+          />
+        )}
+      </aside>
+    );
+  }
 
   return (
     <aside className="w-88 shrink-0 sticky top-8 self-start bg-surface rounded-[18px] p-7 flex flex-col">
@@ -88,7 +107,7 @@ export function FiltersSidebar() {
             onClick={clearFilters}
             className="w-full h-11 rounded-full border border-white/60 text-white text-button cursor-pointer"
           >
-            Clear filters
+            Clear all filters
           </button>
         )}
         <span className="text-muted text-body-s">
