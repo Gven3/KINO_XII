@@ -3,6 +3,7 @@ import type { Film } from "../../types";
 import { Tag } from "../Tag";
 import timer from "@/assets/icons/timer.svg";
 import ticket from "@/assets/icons/ticket.svg";
+import { formatLongDate } from "@/lib/date";
 
 type HeroMovieInfoProps = {
   film: Film;
@@ -11,10 +12,13 @@ type HeroMovieInfoProps = {
 export function HeroMovieInfo({ film }: HeroMovieInfoProps) {
   const runtimeTagValue = film.runtimeMinutes + " Min";
   const filmFormat = film.formats;
+  const statusTag = film.isComingSoon
+    ? `COMING SOON · ${formatLongDate(film.releaseDate).toUpperCase()}`
+    : "NOW PLAYING";
   return (
     <div className="absolute bottom-45 h-63.5 w-145 inset-x-17 flex flex-col gap-5">
       <div className="flex flex-col gap-4">
-        <Tag variant="primary" value={"PREMIERE · WEEK OF 15 SEPT"} />
+        <Tag variant="primary" value={statusTag} />
         <h1 className="text-white text-display">{film.title}</h1>
         <div className="flex items-center gap-2">
           <Tag value={film.ageRating.code} variant="primary" />
@@ -29,14 +33,14 @@ export function HeroMovieInfo({ film }: HeroMovieInfoProps) {
       </div>
       <div className="flex items-center gap-2.5">
         <ButtonLink
-          to={""}
+          to={"/movie/" + film.slug}
           variant="primary"
           className="flex gap-1 items-center"
         >
           <img src={ticket} alt="" />
           <span className="text-white text-button">Buy tickets</span>
         </ButtonLink>
-        <ButtonLink to={""}>
+        <ButtonLink to="/sessions">
           <span className="text-white text-button">All sessions</span>
         </ButtonLink>
       </div>

@@ -5,7 +5,9 @@ import { HeroProgress } from "./HeroProgress";
 import { HeroSlide } from "./HeroSlide";
 
 export function HeroCarousel() {
-  const { data: films = [], isError } = useFeaturedFilms();
+  const { data, isError } = useFeaturedFilms();
+  // The hero shows exactly four featured films.
+  const films = data?.slice(0, 4) ?? [];
   const { currentIndex, goTo, next, prev } = useCarousel(films.length);
 
   if (isError || films.length === 0) return null;
