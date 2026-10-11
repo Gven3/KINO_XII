@@ -14,6 +14,9 @@ export function RecentlyViewedSection() {
     [WheelGesturesPlugin()],
   );
 
+  // Hidden until the user has opened a film (or if every viewed film is gone).
+  if (!isLoading && !isError && films.length === 0) return null;
+
   return (
     <section className="w-full px-17 pt-17 pb-12 flex flex-col gap-6 border-b border-b-surface-light">
       <h2 className="text-white text-h1">Recently viewed</h2>
@@ -23,10 +26,6 @@ export function RecentlyViewedSection() {
           onRetry={refetch}
           isRetrying={isRetrying}
         />
-      ) : !isLoading && films.length === 0 ? (
-        <p className="text-muted text-body-l">
-          Films you open will show up here, so you can find them again quickly.
-        </p>
       ) : (
         <div ref={emblaRef} className="overflow-hidden mask-r-from-90%">
           <ul className="flex gap-4">
