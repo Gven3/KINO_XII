@@ -38,6 +38,9 @@ export function BookingSteps({ session, initialHold }: BookingStepsProps) {
           ) : (
             <SeatMapView
               seatMap={booking.seatMap}
+              isError={booking.isSeatMapError}
+              isRetrying={booking.isSeatMapRefetching}
+              onRetry={booking.retrySeatMap}
               selection={booking.selection}
               takenCodes={booking.takenCodes}
               onToggle={booking.toggleSeat}

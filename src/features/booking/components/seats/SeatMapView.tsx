@@ -4,6 +4,7 @@ import {
   TransformWrapper,
   type ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
+import { ErrorState } from "@/components/ui/ErrorState";
 import type { Seat, SeatMap, SelectedSeat } from "../../types";
 import { getSeatDisplayState } from "../../utils";
 import { HallSection } from "./HallSection";
@@ -15,6 +16,9 @@ const DRAG_THRESHOLD = 5;
 
 type SeatMapViewProps = {
   seatMap: SeatMap | undefined;
+  isError: boolean;
+  isRetrying: boolean;
+  onRetry: () => void;
   selection: SelectedSeat[];
   takenCodes: string[];
   onToggle: (seat: Seat) => void;
@@ -22,6 +26,9 @@ type SeatMapViewProps = {
 
 export function SeatMapView({
   seatMap,
+  isError,
+  isRetrying,
+  onRetry,
   selection,
   takenCodes,
   onToggle,
@@ -99,6 +106,12 @@ export function SeatMapView({
             <ZoomControls />
           </div>
         </TransformWrapper>
+      ) : isError ? (
+        <ErrorState
+          message="We couldn't load the seat map."
+          onRetry={onRetry}
+          isRetrying={isRetrying}
+        />
       ) : (
         <span className="flex-1 text-muted text-body-m text-center">
           Loading seats...

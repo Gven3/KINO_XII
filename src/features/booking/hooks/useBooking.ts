@@ -40,7 +40,12 @@ export function useBooking(
 ) {
   const { user } = useCurrentUser();
   const { data: options } = useFilterOptions();
-  const { data: seatMap, refetch: refetchSeats } = useSeatMap(session.id);
+  const {
+    data: seatMap,
+    refetch: refetchSeats,
+    isError: isSeatMapError,
+    isRefetching: isSeatMapRefetching,
+  } = useSeatMap(session.id);
   const { mutateAsync: createHold, isPending: isHolding } = useCreateHold();
 
   const [step, setStep] = useState<BookingStep>(
@@ -180,6 +185,9 @@ export function useBooking(
   return {
     step,
     seatMap,
+    isSeatMapError,
+    isSeatMapRefetching,
+    retrySeatMap: () => refetchSeats(),
     selection,
     hold,
     order,
